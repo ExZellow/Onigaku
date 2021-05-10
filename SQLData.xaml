@@ -1,0 +1,31 @@
+﻿<Window x:Class="Onigaku.SQLData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Onigaku"
+        mc:Ignorable="d"
+        Title="SQLData" Height="450" Width="800">
+    <Grid>
+        <DataGrid Name="DG" HorizontalAlignment="Left" AutoGenerateColumns="False" Height="185" Margin="22,37,0,0" VerticalAlignment="Top" Width="350" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding user_id}" Header="ID" Width="*"/>
+                <DataGridTextColumn Binding="{Binding username}" Header="Username" Width="3*"/>
+                <DataGridTextColumn Binding="{Binding password}" Header="Password" Width="3*" />
+                <DataGridTextColumn Binding="{Binding access_level}" Header="Access level" Width="3*"/>
+                <DataGridTextColumn Binding="{Binding email}" Header="Email" Width="3*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox Name="Email"  HorizontalAlignment="Left" Height="23" Margin="480,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="User" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="480,89,0,0"/>
+        <TextBox Name="PW" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="480,117,0,0"/>
+        <Button x:Name="insertion" Content="Insert" HorizontalAlignment="Left" Margin="480,145,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="Insert_Data"/>
+        <Button x:Name="DeleteData" Content="Delete" HorizontalAlignment="Left" Height="36" Margin="480,186,0,0" VerticalAlignment="Top" Width="120" Click="Delete"/>
+        <Button x:Name="Update" Content="Update" HorizontalAlignment="Left" Height="39" Margin="480,227,0,0" VerticalAlignment="Top" Width="120" Click="UpdateData"/>
+        <Label x:Name="label" Content="Email" HorizontalAlignment="Left" Margin="427,61,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="Username" HorizontalAlignment="Left" Margin="403,88,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label2" Content="Password" HorizontalAlignment="Left" Margin="405,117,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="display" Content="Display" HorizontalAlignment="Left" Height="39" Margin="480,227,0,0" VerticalAlignment="Top" Width="120" Click="DisplayData"/>
+
+    </Grid>
+</Window>

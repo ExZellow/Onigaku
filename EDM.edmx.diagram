@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="661f657be0aa42e0aa125f45e77cbbe2" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="MLS_DBModel.access" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MLS_DBModel.album" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MLS_DBModel.coverart" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MLS_DBModel.performer" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MLS_DBModel.playlist" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MLS_DBModel.rating" Width="1.5" PointX="12" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MLS_DBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MLS_DBModel.track" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MLS_DBModel.tracks_info" Width="1.5" PointX="9.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MLS_DBModel.user" Width="1.5" PointX="10.5" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="MLS_DBModel.FK__users__access_le__07C12930" ManuallyRouted="false" />
+        <AssociationConnector Association="MLS_DBModel.FK__albums__coverart__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="MLS_DBModel.FK__playlists__album__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="MLS_DBModel.FK__tracks__performe__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="MLS_DBModel.FK__rating__track_id__0E6E26BF" ManuallyRouted="false" />
+        <AssociationConnector Association="MLS_DBModel.FK__tracks_in__track__0D7A0286" ManuallyRouted="false" />
+        <AssociationConnector Association="MLS_DBModel.albums_tracks" ManuallyRouted="false" />
+        <AssociationConnector Association="MLS_DBModel.playlist_tracks" ManuallyRouted="false" />
+        <AssociationConnector Association="MLS_DBModel.users_playlists" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
