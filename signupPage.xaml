@@ -8,31 +8,37 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Name="signUpGrid" Background="AliceBlue">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="268*"/>
-            <ColumnDefinition Width="262*"/>
-            <ColumnDefinition Width="269*"/>
-        </Grid.ColumnDefinitions>
+    <Grid Name="signUpGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="54*"/>
-            <RowDefinition Height="78*"/>
-            <RowDefinition Height="78*"/>
-            <RowDefinition Height="78*"/>
-            <RowDefinition Height="78*"/>
-            <RowDefinition Height="90*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="12*"/>
         </Grid.RowDefinitions>
-        <ContentControl x:Name="upPanel" Margin="0,0,0.2,5.6" Grid.ColumnSpan="3">
+        <ContentControl x:Name="upPanel" Grid.Row="0" Grid.RowSpan="2">
         </ContentControl>
-        <TextBox GotFocus="emailBox_GotFocus" LostFocus="emailBox_LostFocus" x:Name="emailBox" Text="Электронная почта" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="55" TextWrapping="Wrap" Width="245" Margin="9.8,11.4,0,0" Grid.Column="1" Grid.Row="1"/>
-        <TextBox x:Name="loginBox" Text="Логин" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center" Height="56" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" Margin="9.8,10.6,0,0" Grid.Column="1" Grid.Row="2"/>
-        <PasswordBox x:Name="pwBox" HorizontalAlignment="Left" FontSize="18" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,9.8,0,0" Grid.Column="1" Grid.Row="3"/>
-        <!--<TextBox x:Name="pwBoxPlaceholder" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="53" Width="245" Margin="10.8,10.2,0,0" Grid.Column="1" Grid.Row="3"/> -->
-        <PasswordBox x:Name="repeatpwBox" HorizontalAlignment="Left" FontSize="18" VerticalContentAlignment="Center"  VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,10,0,0" Grid.Column="1" Grid.Row="4"/>
-        <!--<TextBox x:Name="repeatpwBoxPlaceholder" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center"  VerticalAlignment="Top" Height="54" Width="245" Margin="11.8,9.6,0,0" Grid.Column="1" Grid.Row="4"/> -->
-        <Button x:Name="signupButton" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="63" Margin="131.8,12,0,0" VerticalAlignment="Top" Width="125" Grid.Column="1" Click="signUp" Grid.Row="5"/>
-        <Button x:Name="loginButton" Content="Уже есть аккаунт?" HorizontalAlignment="Left" Height="63" Margin="10.8,12,0,0" VerticalAlignment="Top" Width="114" Click="signUp" Grid.Row="5" Grid.Column="1"/>
-        <Button Content="&#xE751;" FontFamily="Segoe MDL2 Assets" Foreground="Black" FontSize="30" HorizontalAlignment="Left" Height="59" VerticalAlignment="Top" Width="99" Opacity="0.5" Background="AliceBlue" Click="signUp_MoveBack" Margin="0,16.4,0,0" Grid.Row="1"/>
+        <Grid Grid.Row="1" Background="AliceBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox GotFocus="emailBox_GotFocus" LostFocus="emailBox_LostFocus" x:Name="emailBox" Text="Электронная почта" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="55" TextWrapping="Wrap" Width="243" Margin="9.8,11.4,0,0" Grid.Column="1" Grid.Row="0"/>
+            <TextBox GotFocus="loginBox_GotFocus" LostFocus="loginBox_LostFocus" x:Name="loginBox" Text="Логин" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center" Height="56" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" Margin="9.8,10.6,0,0" Grid.Column="1" Grid.Row="1"/>
+            <PasswordBox x:Name="pwBox" PasswordChar="•" HorizontalAlignment="Left" FontSize="18" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="57" Width="243" Margin="10,9.8,0,0" Grid.Column="1" Grid.Row="2"/>
+            <TextBox x:Name="pwBoxPlaceholder" GotFocus="pwBoxPlaceholder_GotFocus" LostFocus="pwBoxPlaceholder_LostFocus" Text="Пароль" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,9.8,0,0" Grid.Column="1" Grid.Row="2"/>
+            <PasswordBox x:Name="repeatpwBox" PasswordChar="•" HorizontalAlignment="Left" FontSize="18" VerticalContentAlignment="Center"  VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,10,0,0" Grid.Column="1" Grid.Row="3"/>
+            <TextBox x:Name="repeatpwBoxPlaceholder" Text="Повторите пароль" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center"  VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,10,0,0" Grid.Column="1" Grid.Row="3"/>
+            <Button x:Name="signupButton" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="63" Margin="131.8,12,0,0" VerticalAlignment="Top" Width="125" Grid.Column="1" Click="signUp" Grid.Row="4"/>
+            <Button x:Name="loginButton" Content="Уже есть аккаунт?" HorizontalAlignment="Left" Height="63" Margin="10.8,12,0,0" VerticalAlignment="Top" Width="114" Click="signUp" Grid.Row="5" Grid.Column="1"/>
+            <Button Content="&#xE751;" FontFamily="Segoe MDL2 Assets" Foreground="Black" FontSize="30" HorizontalAlignment="Left" Height="59" VerticalAlignment="Top" Width="99" Opacity="0.5" Background="AliceBlue" Click="signUp_MoveBack" Margin="0,16.4,0,0" Grid.Row="1"/>
+            <CheckBox Content="Показать пароль" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Height="19" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+        </Grid>
     </Grid>
 
 </Page>

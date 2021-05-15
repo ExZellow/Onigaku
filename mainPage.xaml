@@ -15,34 +15,78 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="12*"/>
 
         </Grid.RowDefinitions>
-        <UserControl Name="UpperPanel">
-            <StackPanel VerticalAlignment="Top" Height="35">
-                <Grid x:Name="controlPanel" Background="Black" Opacity="0.4">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button x:Name="minimizeButton" FontFamily="Segoe MDL2 Assets" FontSize="15" Content="&#xE921;" Width="38" Height="30" VerticalContentAlignment="Bottom" Click="minimizeWindow" Foreground="AliceBlue" Background="Transparent" BorderBrush="Transparent">
-                        </Button>
-                        <Button x:Name="openScaleButton" FontFamily="Segoe MDL2 Assets" FontSize="15" Content="&#xE922;" Width="38" Height="30" Click="changeWindowScale" Foreground="AliceBlue" Background="Transparent" BorderBrush="Transparent">
-                        </Button>
-                        <Button x:Name="closeButton" FontFamily="Segoe MDL2 Assets" FontSize="15" Content="&#xE8BB;" Width="38" Height="30" Click="closeWindow" Foreground="AliceBlue" Background="Transparent" BorderBrush="Transparent"/>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
-        </UserControl>
+
+        <ContentControl x:Name="upPanel" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="2">
+        </ContentControl>
 
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="51*"/>
+                <ColumnDefinition Width="149*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Margin="0,0,-0.4,0" Grid.RowSpan="4"/>
-            <Button x:Name="SQLForm" Grid.Row="0" Content="User Page" HorizontalAlignment="Left" Height="80" Margin="50,0,0,0" VerticalAlignment="Center" Width="164" Click="SQLFormOpen"/>
-            <Button x:Name="playerOpenButton" Content="Sign Up" HorizontalAlignment="Left" Height="59" Margin="675,10,0,0" VerticalAlignment="Top" Width="115" Click="openSignUp"/>
-            <Button x:Name="play" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" HorizontalAlignment="Left" Height="74" Margin="677,50.6,0,0" Grid.Row="2" VerticalAlignment="Top" Width="113" Click="Button_Click"/>
-            <StackPanel Name="music_panel" HorizontalAlignment="Left" Height="250" Margin="234,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="364"/>
+            <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Margin="0,0,0,-0.667" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+            <Button x:Name="SQLForm" Grid.Row="1" Content="User Page" HorizontalAlignment="Left" Height="80" Margin="422.3,9.8,0,45.4" VerticalAlignment="Center" Width="164" Click="SQLFormOpen" Grid.Column="1"/>
+            <Button x:Name="playerOpenButton" Content="Sign Up" HorizontalAlignment="Left" Height="56" Margin="500.3,10,0,0" VerticalAlignment="Top" Width="86" Click="openSignUp" Grid.Column="1"/>
+            <Button x:Name="play" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" HorizontalAlignment="Left" Height="74" Margin="437,301,0,0" VerticalAlignment="Top" Width="113" Click="play_track" Grid.Column="1"/>
+            <StackPanel Name="music_panel" HorizontalAlignment="Left" Height="250" Margin="30.3,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Column="1">
+           </StackPanel>
+            <Grid Name="side_panel" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ListView Grid.RowSpan="6">
+                    <ListViewItem Grid.Row="0" Height="68.2">
+                        <StackPanel>
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="25" FontWeight="UltraBold" Text="&#xE700;"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Grid.Row="1" Height="68.2">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE721;" FontFamily="Segoe MDL2 Assets" Margin="0, 3, 15, 0"/>
+                            <TextBlock Text="Поиск"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Grid.Row="2" Height="68.2">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE71D;" FontFamily="Segoe MDL2 Assets" Margin="0, 3, 15, 0"/>
+                            <TextBlock Text="Мои плейлисты"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Grid.Row="3" Height="68.2">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xEA98;" FontFamily="Segoe MDL2 Assets" Margin="0, 3, 15, 0"/>
+                            <TextBlock Text="Мои аудиозаписи"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Grid.Row="4" Height="68.2">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xEB51;" FontFamily="Segoe MDL2 Assets" Margin="0, 3, 15, 0"/>
+                            <TextBlock Text="Чарты"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Grid.Row="5" Height="69">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xEA62;" FontFamily="Segoe MDL2 Assets" Margin="0, 3, 15, 0"/>
+                            <TextBlock Text="Выйти из аккаунта"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

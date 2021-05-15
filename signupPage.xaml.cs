@@ -95,16 +95,19 @@ namespace Onigaku
                     switch(entry.ErrorMessage[0])
                     {
                         case '1':
+                            emailBox.BorderThickness = new Thickness(5,5,5,5);
                             emailBox.BorderBrush = Brushes.Red;
                             emailBox.Focus();
                             emailBox.ToolTip = toolTip;
                             break;
                         case '2':
+                            loginBox.BorderThickness = new Thickness(5,5,5,5);
                             loginBox.BorderBrush = Brushes.Red;
                             loginBox.Focus();
                             loginBox.ToolTip = toolTip;
                             break;
                         case '3':
+                            pwBox.BorderThickness = new Thickness(5,5,5,5);
                             pwBox.BorderBrush = Brushes.Red;
                             pwBox.Focus();
                             pwBox.ToolTip = toolTip;
@@ -166,6 +169,45 @@ namespace Onigaku
         private void signUp_MoveBack(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void loginBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.loginBox.Text.Length < 6)
+            this.loginBox.Text = "";
+        }
+
+        private void loginBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.loginBox.Text.Length < 6)
+            {
+                this.loginBox.Text = "Логин";
+            }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            pwBox.Visibility = Visibility.Hidden;
+            pwBoxPlaceholder.Text = pwBox.Password;
+            pwBoxPlaceholder.Visibility = Visibility.Visible;
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            pwBoxPlaceholder.Visibility = Visibility.Hidden;
+            pwBox.Password = pwBoxPlaceholder.Text;
+            pwBox.Visibility = Visibility.Visible;
+        }
+
+        private void pwBoxPlaceholder_GotFocus(object sender, RoutedEventArgs e)
+        {
+            pwBoxPlaceholder.Text = "";
+            pwBox.Focus();
+        }
+
+        private void pwBoxPlaceholder_LostFocus(object sender, RoutedEventArgs e)
+        {
+            pwBoxPlaceholder.Text = "Пароль";
         }
     }
 }

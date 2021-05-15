@@ -26,10 +26,14 @@ namespace Onigaku
     {
         private MainWindow m_main_window;
         private MediaPlayer player = new MediaPlayer();
+        public int Index;
+        public bool IsPlaying = false;
+        MLS_DBEntities1 ctx = MLS_DBEntities1.GetContext();
 
         public mainPage()
         {
             InitializeComponent();
+            this.upPanel.Content = new upperPanel();
             this.m_main_window = Application.Current.MainWindow as MainWindow;
 
             List<Button> buttons = new List<Button>() { SQLForm, playerOpenButton };
@@ -37,41 +41,61 @@ namespace Onigaku
             {
                 btn.Style = StyleClass.buttonStyle;
             }
-            foreach (var curr_track in MLS_DBEntities1.GetContext().tracks)
+            foreach (var curr_track in ctx.tracks.ToList())
             {
-                music_panel.Children.Add(new Button
+                FontFamily ui_symbols_font = new FontFamily("Segoe MDL2 Assets");
+                StackPanel pl_item = new StackPanel
                 {
-                    FontFamily = new FontFamily("Segoe MDL2 Assets"),
+                    Orientation = Orientation.Horizontal,
+                    Height = 40,
+                    Background = Brushes.Black
+                };
+                var play_btn = new Button
+                {
+                    Height = 40,
+                    Width = 40,
+                    FontFamily = ui_symbols_font,
                     Content = char.ConvertFromUtf32(0xE768),
-                    Height = 40
-                }
-                );
+                };
+                var t_add_btn = new Button
+                {
+                    Height = 40,
+                    Width = 40,
+                    FontFamily = ui_symbols_font,
+                    Content = char.ConvertFromUtf32(0xE948),
+                };
+
+                var tr_duration = new TextBlock
+                {
+                    Height = 40,
+                    FontSize = 18,
+                    Foreground = Brushes.White,
+                    Margin = new Thickness(11, 6, 11, 5),
+                    Text = TimeSpan.FromSeconds((double)curr_track.track_duration).ToString(),
+                    TextAlignment = TextAlignment.Right
+                };
+                
+                var tr_name = new TextBlock
+                {
+                    Height = 40,
+                    FontSize = 18,
+                    Foreground = Brushes.White,
+                    Margin = new Thickness(11, 6, 11, 5),
+                    Text = curr_track.tracks_info.track_name + " - " + curr_track.performer.performer_name
+                };
+                pl_item.Children.Add(play_btn);
+                pl_item.Children.Add(t_add_btn);
+                pl_item.Children.Add(tr_name);
+                pl_item.Children.Add(tr_duration);
+                music_panel.Children.Add(pl_item);
+                //Index = curr_track.;
+                //Index = pl_item.Children.IndexOf(play_btn) + 1;
+                play_btn.Click += play_track;
+                play_btn.Tag = curr_track.track_id;
+                
             }
         }
 
-        private void minimizeWindow(object sender, RoutedEventArgs e)
-        {
-            m_main_window.WindowState = WindowState.Minimized;
-        }
-
-        private void closeWindow(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void changeWindowScale(object sender, RoutedEventArgs e)
-        {
-            if (m_main_window.WindowState == System.Windows.WindowState.Normal)
-            {
-                m_main_window.WindowState = System.Windows.WindowState.Maximized;
-                openScaleButton.Content = char.ConvertFromUtf32(0xE923);
-            }
-            else
-            {
-                m_main_window.WindowState = System.Windows.WindowState.Normal;
-                openScaleButton.Content = char.ConvertFromUtf32(0xE922);
-            }
-        }
         private void SQLFormOpen(object sender, RoutedEventArgs e)
         {
             SQLData sqlWindow = new SQLData();
@@ -88,12 +112,18 @@ namespace Onigaku
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void play_track(object sender, RoutedEventArgs e)
         {
+            var c = sender as Control;
             var client = new System.Net.WebClient();
-            client.DownloadFile("http://localhost:1337/12", path_t.GetTempPath().ToString() + "12.mp3");
-            player.Open(new Uri(path_t.GetTempPath().ToString() + "12.mp3", UriKind.Relative));
+            if (IsPlaying)
+            {
+                player.Stop();
+            }
+            client.DownloadFile("http://localhost:1337/" + Convert.ToInt32(c.Tag), path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3");
+            player.Open(new Uri(path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3", UriKind.Relative));
             player.Play();
+            IsPlaying = true;
         }
 
     }
