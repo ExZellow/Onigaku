@@ -33,22 +33,9 @@ namespace Onigaku
         }
 
 
-        public void openUIPage(Page page_list)
+        public void openUIPage(Page page)
         {
-            this.navigationFrame.NavigationService.Navigate(page_list);
-            /*switch (page_list)
-            {
-                /*case pagesList.loginPage:
-                    {
-                        mainFrame.Navigate(new loginPage(this));
-                        break;
-                    }//
-                case pagesList.signupPage:
-                    {
-                        mainFrame.Navigate(new signupPage(this));
-                        break;
-                    }
-            }*/
+            this.navigationFrame.NavigationService.Navigate(page);
         }
     }
 }

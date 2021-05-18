@@ -76,6 +76,9 @@
     <Compile Include="album.cs">
       <DependentUpon>EDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="bottomPanel.xaml.cs">
+      <DependentUpon>bottomPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="coverart.cs">
       <DependentUpon>EDM.tt</DependentUpon>
     </Compile>
@@ -107,6 +110,9 @@
     <Compile Include="rating.cs">
       <DependentUpon>EDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="searchPage.xaml.cs">
+      <DependentUpon>searchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="signupPage.xaml.cs">
       <DependentUpon>signupPage.xaml</DependentUpon>
     </Compile>
@@ -129,6 +135,10 @@
     <Compile Include="user.cs">
       <DependentUpon>EDM.tt</DependentUpon>
     </Compile>
+    <Page Include="bottomPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="mainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +155,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="searchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="signupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

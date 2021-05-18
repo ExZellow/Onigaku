@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <ContentControl x:Name="upPanel" Grid.Row="0" Grid.RowSpan="2">
         </ContentControl>
-        <Grid Grid.Row="1" Background="AliceBlue">
+        <Grid Grid.Row="1" Background="#171717">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -36,8 +36,8 @@
             <TextBox x:Name="repeatpwBoxPlaceholder" Text="Повторите пароль" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center"  VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,10,0,0" Grid.Column="1" Grid.Row="3"/>
             <Button x:Name="signupButton" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="63" Margin="131.8,12,0,0" VerticalAlignment="Top" Width="125" Grid.Column="1" Click="signUp" Grid.Row="4"/>
             <Button x:Name="loginButton" Content="Уже есть аккаунт?" HorizontalAlignment="Left" Height="63" Margin="10.8,12,0,0" VerticalAlignment="Top" Width="114" Click="signUp" Grid.Row="5" Grid.Column="1"/>
-            <Button Content="&#xE751;" FontFamily="Segoe MDL2 Assets" Foreground="Black" FontSize="30" HorizontalAlignment="Left" Height="59" VerticalAlignment="Top" Width="99" Opacity="0.5" Background="AliceBlue" Click="signUp_MoveBack" Margin="0,16.4,0,0" Grid.Row="1"/>
-            <CheckBox Content="Показать пароль" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Height="19" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+            <Button Content="&#xE751;" FontFamily="Segoe MDL2 Assets" Foreground="White" FontSize="30" HorizontalAlignment="Left" Height="59" VerticalAlignment="Top" Width="99" Opacity="0.5" Background="#171717" BorderBrush="Transparent" Click="signUp_MoveBack"/>
+            <CheckBox Content="Показать пароль" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Height="19" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
         </Grid>
     </Grid>
 

@@ -30,12 +30,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Margin="0,0,0,-0.667" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
-            <Button x:Name="SQLForm" Grid.Row="1" Content="User Page" HorizontalAlignment="Left" Height="80" Margin="422.3,9.8,0,45.4" VerticalAlignment="Center" Width="164" Click="SQLFormOpen" Grid.Column="1"/>
+            <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Margin="0,0,0,-0.8" Grid.Column="1"/>
+            <Button x:Name="SQLForm" Content="User Page" HorizontalAlignment="Left" Height="78" Margin="500,152,0,185.2" VerticalAlignment="Center" Width="86" Click="SQLFormOpen" Grid.Column="1"/>
             <Button x:Name="playerOpenButton" Content="Sign Up" HorizontalAlignment="Left" Height="56" Margin="500.3,10,0,0" VerticalAlignment="Top" Width="86" Click="openSignUp" Grid.Column="1"/>
-            <Button x:Name="play" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" HorizontalAlignment="Left" Height="74" Margin="437,301,0,0" VerticalAlignment="Top" Width="113" Click="play_track" Grid.Column="1"/>
-            <StackPanel Name="music_panel" HorizontalAlignment="Left" Height="250" Margin="30.3,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Column="1">
-           </StackPanel>
+            <Button x:Name="play" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" HorizontalAlignment="Left" Height="60" Margin="511,317,0,0" VerticalAlignment="Top" Width="75" Click="play_track" Grid.Column="1"/>
+            <ScrollViewer  Width="auto" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10,10,101,106.2" Grid.Column="1">
+                <StackPanel Name="music_panel" HorizontalAlignment="Left" Margin="30.3,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Column="1">
+                </StackPanel>
+            </ScrollViewer>
             <Grid Name="side_panel" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -49,13 +51,13 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <ListView Grid.RowSpan="6">
+                <ListView x:Name="left_panel" Grid.RowSpan="6">
                     <ListViewItem Grid.Row="0" Height="68.2">
                         <StackPanel>
-                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="25" FontWeight="UltraBold" Text="&#xE700;"/>
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="25" Text="&#xE700;"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Grid.Row="1" Height="68.2">
+                    <ListViewItem Grid.Row="1" Height="68.2" Selected="ListViewItem_Selected">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="&#xE721;" FontFamily="Segoe MDL2 Assets" Margin="0, 3, 15, 0"/>
                             <TextBlock Text="Поиск"/>

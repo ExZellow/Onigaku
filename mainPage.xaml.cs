@@ -26,7 +26,7 @@ namespace Onigaku
     {
         private MainWindow m_main_window;
         private MediaPlayer player = new MediaPlayer();
-        public int Index;
+        int played_track_counter = 0;
         public bool IsPlaying = false;
         MLS_DBEntities1 ctx = MLS_DBEntities1.GetContext();
 
@@ -37,7 +37,7 @@ namespace Onigaku
             this.m_main_window = Application.Current.MainWindow as MainWindow;
 
             List<Button> buttons = new List<Button>() { SQLForm, playerOpenButton };
-            foreach (Button btn in buttons)// enumerate_elements<Button>(this))
+            foreach (Button btn in buttons)
             {
                 btn.Style = StyleClass.buttonStyle;
             }
@@ -88,8 +88,6 @@ namespace Onigaku
                 pl_item.Children.Add(tr_name);
                 pl_item.Children.Add(tr_duration);
                 music_panel.Children.Add(pl_item);
-                //Index = curr_track.;
-                //Index = pl_item.Children.IndexOf(play_btn) + 1;
                 play_btn.Click += play_track;
                 play_btn.Tag = curr_track.track_id;
                 
@@ -116,15 +114,76 @@ namespace Onigaku
         {
             var c = sender as Control;
             var client = new System.Net.WebClient();
-            if (IsPlaying)
+
+            if (c.Tag == this.Tag)
             {
-                player.Stop();
+                if (IsPlaying)
+                {
+                    player.Pause();
+                    IsPlaying = false;
+                } else
+                {
+                    player.Play();
+                    IsPlaying = true;
+                }
             }
-            client.DownloadFile("http://localhost:1337/" + Convert.ToInt32(c.Tag), path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3");
-            player.Open(new Uri(path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3", UriKind.Relative));
-            player.Play();
-            IsPlaying = true;
+            else
+            {
+                if (played_track_counter != 0 && player.Position.TotalSeconds < 30)
+                {
+                    try
+                    {
+                        System.IO.File.Delete("C:\\Users\\DexHydre\\AppData\\Local\\Temp\\" + this.Tag + ".mp3");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("There is no such file!");
+                    }
+                }
+                client.DownloadFile("http://localhost:1337/" + Convert.ToInt32(c.Tag), path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3");
+                player.Open(new Uri(path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3", UriKind.Relative));
+                player.Play();
+                played_track_counter++;
+                IsPlaying = true;
+                this.Tag = c.Tag;
+                /*if (player.Position.TotalSeconds < 30 && IsPlaying && (c.Tag != this.Tag))
+                {
+                    //player.Close();
+                    try
+                    {
+                        System.IO.File.Delete("C:\\Users\\DexHydre\\AppData\\Local\\Temp\\" + this.Tag + ".mp3");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("There is no such file!");
+                    }
+
+                    player.Play();
+                    IsPlaying = true;
+                }
+                else {
+                    client.DownloadFile("http://localhost:1337/" + Convert.ToInt32(c.Tag), path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3");
+                    player.Open(new Uri(path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3", UriKind.Relative));
+                    player.Play();
+                    IsPlaying = true;
+                    this.Tag = c.Tag;
+                }*/
+            }
         }
 
+        private void C_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
+        {
+            switch(left_panel.SelectedIndex)
+            {
+                case 1:
+                    m_main_window.openUIPage(new searchPage());
+                    break;
+            }
+        }
     }
 }
