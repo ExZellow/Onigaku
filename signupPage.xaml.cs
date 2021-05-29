@@ -133,7 +133,7 @@ namespace Onigaku
                     userr.email = emailBox.Text;
                     userr.username = loginBox.Text;
                     userr.password = pwBox.Password;
-                    var db_ctx = MLS_DBEntities1.GetContext();
+                    var db_ctx = MLS_DB.GetContext();
                     db_ctx.users.Add(userr);
                     db_ctx.SaveChanges();
                     MessageBox.Show("New user added");

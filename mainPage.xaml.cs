@@ -28,7 +28,7 @@ namespace Onigaku
         private MediaPlayer player = new MediaPlayer();
         int played_track_counter = 0;
         public bool IsPlaying = false;
-        MLS_DBEntities1 ctx = MLS_DBEntities1.GetContext();
+        MLS_DB ctx = MLS_DB.GetContext();
 
         public mainPage()
         {

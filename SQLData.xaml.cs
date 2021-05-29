@@ -19,7 +19,7 @@ namespace Onigaku
     /// </summary>
     public partial class SQLData : Window
     {
-        MLS_DBEntities1 DB;
+        MLS_DB DB;
         public SQLData()
         {
             InitializeComponent();
@@ -44,13 +44,13 @@ namespace Onigaku
         }
         private void DisplayData(object sender, RoutedEventArgs e)
         {
-            DB = new MLS_DBEntities1();
-            DG.ItemsSource = MLS_DBEntities1.GetContext().users.ToList();
+            DB = new MLS_DB();
+            DG.ItemsSource = MLS_DB.GetContext().users.ToList();
         }
 
         private void LoadData(object sender, RoutedEventArgs e)
         {
-            DB = new MLS_DBEntities1();
+            DB = new MLS_DB();
             DG.ItemsSource = DB.users.ToList();
         }
 

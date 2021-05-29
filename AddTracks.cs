@@ -15,17 +15,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Onigaku
 {
-    public class db_attrib
+    /*public class db_attrib
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int track_id { get; set; }
-    }
+    }*/
     public class AddTracks
     {
         public void AddTrack()
         {
-            MLS_DBEntities1 DB = new MLS_DBEntities1();
-            var ctx = MLS_DBEntities1.GetContext();
+            MLS_DB DB = new MLS_DB();
+            var ctx = MLS_DB.GetContext();
 
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = @"C:\";
@@ -79,23 +79,22 @@ namespace Onigaku
                         select t.track_id).Count() + 1;
 
 
-                    var a = new db_attrib
+                    /*var a = new db_attrib
                     {
                         track_id = new_track_id
-                    };
+                    };*/
 
 
 
 
 
-                        //System.Windows.MessageBox.Show(tag.Artists);
-                        if (duplicate_track.Any())
-                        {
+                    //System.Windows.MessageBox.Show(tag.Artists);
+                    if (duplicate_track.Any()) {
                             System.Windows.MessageBox.Show("Duplicate track");
-                        }
-                        else
-                        //if (!ctx.performers.Where(p => p.performer_name == tag.Artists).Any())
-                        {
+                    }
+                    else
+                    //if (!ctx.performers.Where(p => p.performer_name == tag.Artists).Any())
+                    {
                         /*if (ctx.performers.Join(ctx.tracks, p => p.performer_id, t => t.performer_id, (p, t) => new
                         {
                             performer = p,
@@ -115,7 +114,7 @@ namespace Onigaku
                         var valid_ctx = new ValidationContext(obj);
                         if (!Validator.TryValidateObject(obj, valid_ctx, ret, true))
                         {*/
-                            curr_track.track_id = a.track_id;
+                            curr_track.track_id = new_track_id;
                         //}
                             if (existing_performer.Any())
                             {
@@ -147,20 +146,24 @@ namespace Onigaku
                             //tr_name.track = curr_track;
                             //curr_track.performer = artist;
 
+                        if (!musicFiles.Contains(curr_track.track_id.ToString()))
+                        {
                             DB.tracks.Add(curr_track);
                             DB.tracks_info.Add(tr_name);
                             DB.SaveChanges();
-
-
-
                             
                             var my_field = musicFile.GetType()
                             .GetField(musicFile.ToString(), System.Reflection.BindingFlags.Instance
                             | System.Reflection.BindingFlags.NonPublic);
 
-                            my_field.SetValue(musicFile.ToString(), new_number.ToString());
+                            my_field.SetValue(musicFile, new_number);
 
                             File.Copy(musicFile.ToString(), server_path);
+                        }
+
+
+
+                            
 
                         }
                     //}

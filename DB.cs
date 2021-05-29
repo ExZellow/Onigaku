@@ -8,7 +8,7 @@ namespace Onigaku
 {
     class DB
     {
-        MLS_DBEntities1 db = new MLS_DBEntities1();
+        MLS_DB db = new MLS_DB();
 
     }
 }

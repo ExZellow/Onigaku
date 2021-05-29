@@ -10,8 +10,8 @@ namespace Onigaku
     {
         public void seekTrack()
         {
-            MLS_DBEntities1 DB = new MLS_DBEntities1();
-            var ctx = MLS_DBEntities1.GetContext();
+            MLS_DB DB = new MLS_DB();
+            var ctx = MLS_DB.GetContext();
 
             performer artist = new performer();
             track curr_track = new track();
