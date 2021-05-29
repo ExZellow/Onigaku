@@ -24,7 +24,7 @@ namespace Onigaku
         public upperPanel()
         {
             InitializeComponent();
-            this.m_main_window = Application.Current.MainWindow as MainWindow;
+            //this.m_main_window = Application.Current.MainWindow as MainWindow;
         }
         private void minimizeWindow(object sender, RoutedEventArgs e)
         {

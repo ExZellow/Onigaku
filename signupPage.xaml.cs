@@ -44,7 +44,6 @@ namespace Onigaku
         public signupPage() 
         {
             InitializeComponent();
-            this.upPanel.Content = new upperPanel();
         }
         
         private void login(object sender, RoutedEventArgs e)

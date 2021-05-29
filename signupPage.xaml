@@ -11,7 +11,6 @@
     <Grid Name="signUpGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="12*"/>
         </Grid.RowDefinitions>
         <ContentControl x:Name="upPanel" Grid.Row="0" Grid.RowSpan="2">
         </ContentControl>

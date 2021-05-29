@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MLS_DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MLS_DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="access">
           <Key>
             <PropertyRef Name="access_level" />
@@ -86,7 +86,7 @@
           </Key>
           <Property Name="track_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="performer_id" Type="int" />
-          <Property Name="track_duration" Type="int" />
+          <Property Name="track_duration" Type="int" Nullable="false" />
           <Property Name="genre" Type="nvarchar" MaxLength="50" />
           <Property Name="bitrate" Type="int" />
         </EntityType>
@@ -102,10 +102,10 @@
             <PropertyRef Name="user_id" />
           </Key>
           <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="username" Type="nvarchar" MaxLength="30" />
-          <Property Name="password" Type="nvarchar" MaxLength="30" />
-          <Property Name="access_level" Type="tinyint" />
-          <Property Name="email" Type="nvarchar" MaxLength="40" />
+          <Property Name="username" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="access_level" Type="tinyint" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="users_playlists">
           <Key>
@@ -238,7 +238,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__users__access_le__07C12930">
-          <End Role="access" Type="Self.access" Multiplicity="0..1">
+          <End Role="access" Type="Self.access" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="users" Type="Self.users" Multiplicity="*" />
@@ -347,8 +347,7 @@
             <End Role="users_playlists" EntitySet="users_playlists" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MLS_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -427,7 +426,7 @@
           </Key>
           <Property Name="track_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="performer_id" Type="Int32" />
-          <Property Name="track_duration" Type="Int32" />
+          <Property Name="track_duration" Type="Int32" Nullable="false" />
           <Property Name="genre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="bitrate" Type="Int32" />
           <NavigationProperty Name="performer" Relationship="Self.FK__tracks__performe__06CD04F7" FromRole="tracks" ToRole="performers" />
@@ -449,10 +448,10 @@
             <PropertyRef Name="user_id" />
           </Key>
           <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="access_level" Type="Byte" />
-          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="access_level" Type="Byte" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="access" Relationship="Self.FK__users__access_le__07C12930" FromRole="users" ToRole="access" />
           <NavigationProperty Name="playlists" Relationship="Self.users_playlists" FromRole="users" ToRole="playlists" />
         </EntityType>

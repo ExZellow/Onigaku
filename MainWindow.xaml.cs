@@ -28,6 +28,7 @@ namespace Onigaku
         public MainWindow()
         {
             InitializeComponent();
+            this.upPanel.Content = new upperPanel();
             Application.Current.MainWindow = this;
             Loaded += (object sender, RoutedEventArgs a) => { openUIPage(new mainPage()); };
         }

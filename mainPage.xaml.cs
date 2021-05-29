@@ -33,7 +33,7 @@ namespace Onigaku
         public mainPage()
         {
             InitializeComponent();
-            this.upPanel.Content = new upperPanel();
+            //this.upPanel.Content = new upperPanel();
             this.m_main_window = Application.Current.MainWindow as MainWindow;
 
             List<Button> buttons = new List<Button>() { SQLForm, playerOpenButton };
@@ -146,28 +146,6 @@ namespace Onigaku
                 played_track_counter++;
                 IsPlaying = true;
                 this.Tag = c.Tag;
-                /*if (player.Position.TotalSeconds < 30 && IsPlaying && (c.Tag != this.Tag))
-                {
-                    //player.Close();
-                    try
-                    {
-                        System.IO.File.Delete("C:\\Users\\DexHydre\\AppData\\Local\\Temp\\" + this.Tag + ".mp3");
-                    }
-                    catch
-                    {
-                        MessageBox.Show("There is no such file!");
-                    }
-
-                    player.Play();
-                    IsPlaying = true;
-                }
-                else {
-                    client.DownloadFile("http://localhost:1337/" + Convert.ToInt32(c.Tag), path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3");
-                    player.Open(new Uri(path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3", UriKind.Relative));
-                    player.Play();
-                    IsPlaying = true;
-                    this.Tag = c.Tag;
-                }*/
             }
         }
 
@@ -176,12 +154,19 @@ namespace Onigaku
             throw new NotImplementedException();
         }
 
-        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
+        private void play_Click(object sender, RoutedEventArgs e)
+        {
+            AddTracks tracks_add = new AddTracks();
+            tracks_add.AddTrack();
+        }
+
+        private void left_panel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch(left_panel.SelectedIndex)
             {
                 case 1:
                     m_main_window.openUIPage(new searchPage());
+                    left_panel.SelectedIndex = -1;
                     break;
             }
         }
