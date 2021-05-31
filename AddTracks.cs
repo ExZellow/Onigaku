@@ -43,12 +43,17 @@ namespace Onigaku
                 string[] musicFiles = Directory.GetFiles(server_path, "*.mp3");
                 int new_number = musicFiles.Count() + 1;
 
-                FileStream musicFile = File.OpenRead(fileDialog.FileName);
+                var musicFile = File.OpenRead(fileDialog.FileName);
 
-                
+                /*var my_field = musicFile.GetType()
+                .GetField(musicFile.Name, System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.NonPublic);
+                */
 
 
                 byte[] b = new byte[1024];
+                //Byte[] byteBLOBData = File.ReadAllBytes(fileName);
+                
                 musicFile.Read(b, 0, b.Length);
 
                 using (var mp3 = new Mp3(musicFile))
@@ -90,7 +95,7 @@ namespace Onigaku
 
                     //System.Windows.MessageBox.Show(tag.Artists);
                     if (duplicate_track.Any()) {
-                            System.Windows.MessageBox.Show("Duplicate track");
+                        System.Windows.MessageBox.Show("Duplicate track");
                     }
                     else
                     //if (!ctx.performers.Where(p => p.performer_name == tag.Artists).Any())
@@ -150,15 +155,21 @@ namespace Onigaku
                         {
                             DB.tracks.Add(curr_track);
                             DB.tracks_info.Add(tr_name);
-                            DB.SaveChanges();
+
+                            int dot_position = musicFile.Name.IndexOf(".");
+                            string new_name = server_path + @"\" + new_number.ToString() + musicFile.Name.Substring(dot_position);
+                            if (File.Exists(new_name))
+                            {
+                                System.Windows.MessageBox.Show("Такой файл уже существует!");
+                            }
+                            else
+                            {
+                                File.Copy(musicFile.Name, new_name);
+                            }
                             
-                            var my_field = musicFile.GetType()
-                            .GetField(musicFile.ToString(), System.Reflection.BindingFlags.Instance
-                            | System.Reflection.BindingFlags.NonPublic);
 
-                            my_field.SetValue(musicFile, new_number);
+                            DB.SaveChanges();
 
-                            File.Copy(musicFile.ToString(), server_path);
                         }
 
 

@@ -158,6 +158,7 @@ namespace Onigaku
         {
             AddTracks tracks_add = new AddTracks();
             tracks_add.AddTrack();
+            //music_panel.DataContext = tracks_add;
         }
 
         private void left_panel_SelectionChanged(object sender, SelectionChangedEventArgs e)
