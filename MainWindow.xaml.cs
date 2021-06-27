@@ -17,17 +17,24 @@ using Microsoft.SqlServer;
 using System.Data.Entity;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
+using AutoCompleteTextBox.Editors;
 
 namespace Onigaku
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            try
+            {
+                File.OpenRead(@"C:\DexHydre\webserver\onigaku_webserver.py");
+            }
+            catch
+            {
+                MessageBox.Show("Не удалось запустить сервер");
+            }
             this.upPanel.Content = new upperPanel();
             Application.Current.MainWindow = this;
             Loaded += (object sender, RoutedEventArgs a) => { openUIPage(new mainPage()); };
@@ -38,5 +45,9 @@ namespace Onigaku
         {
             this.navigationFrame.NavigationService.Navigate(page);
         }
+
+
+
+
     }
 }

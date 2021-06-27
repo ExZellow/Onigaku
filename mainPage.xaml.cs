@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,35 +18,57 @@ using System.Net.Http;
 using System.IO;
 
 using path_t = System.IO.Path;
+using AutoCompleteTextBox.Editors;
 
 namespace Onigaku
 {
-    /// <summary>
-    /// Логика взаимодействия для mainPage.xaml
-    /// </summary>
     public partial class mainPage : Page
     {
+        public static Frame FrameMainWindow { get; set; }
         private MainWindow m_main_window;
         private MediaPlayer player = new MediaPlayer();
         int played_track_counter = 0;
         public bool IsPlaying = false;
+
         MLS_DB ctx = MLS_DB.GetContext();
 
         public mainPage()
         {
             InitializeComponent();
-            //this.upPanel.Content = new upperPanel();
+
+
+            this.searchBox.Provider = new SuggestionProvider(x =>
+            {
+                List<string> track_n = new List<string>();
+                foreach (var current_track in ctx.tracks_info.ToList())
+                {
+                    track_n.Add(current_track.track_name);
+                }
+                ObservableCollection<string> obs_collection = new ObservableCollection<string>(track_n);
+                return obs_collection.Where(t => t.Trim().ToLower().Contains(x.Trim().ToLower()));
+            });
+
+            displayPanel();
+
             this.m_main_window = Application.Current.MainWindow as MainWindow;
 
-            List<Button> buttons = new List<Button>() { SQLForm, playerOpenButton };
+            List<Button> buttons = new List<Button>() { SQLForm, signUp, play, logIn };
             foreach (Button btn in buttons)
             {
                 btn.Style = StyleClass.buttonStyle;
             }
+        }
+        public StackPanel displayPanel()
+        {
+
+            searchBox.Filter = "";
+
+            StackPanel pl_item = null;
+
             foreach (var curr_track in ctx.tracks.ToList())
             {
                 FontFamily ui_symbols_font = new FontFamily("Segoe MDL2 Assets");
-                StackPanel pl_item = new StackPanel
+                pl_item = new StackPanel
                 {
                     Orientation = Orientation.Horizontal,
                     Height = 40,
@@ -56,6 +80,8 @@ namespace Onigaku
                     Width = 40,
                     FontFamily = ui_symbols_font,
                     Content = char.ConvertFromUtf32(0xE768),
+                    Foreground = Brushes.White,
+                    Background = Brushes.Black
                 };
                 var t_add_btn = new Button
                 {
@@ -63,9 +89,11 @@ namespace Onigaku
                     Width = 40,
                     FontFamily = ui_symbols_font,
                     Content = char.ConvertFromUtf32(0xE948),
+                    Foreground = Brushes.White,
+                    Background = Brushes.Black
                 };
 
-                var tr_duration = new TextBlock
+                var tr_duration = new TextBlock 
                 {
                     Height = 40,
                     FontSize = 18,
@@ -74,9 +102,10 @@ namespace Onigaku
                     Text = TimeSpan.FromSeconds((double)curr_track.track_duration).ToString(),
                     TextAlignment = TextAlignment.Right
                 };
-                
+
                 var tr_name = new TextBlock
                 {
+                    Name = "track_block",
                     Height = 40,
                     FontSize = 18,
                     Foreground = Brushes.White,
@@ -90,8 +119,8 @@ namespace Onigaku
                 music_panel.Children.Add(pl_item);
                 play_btn.Click += play_track;
                 play_btn.Tag = curr_track.track_id;
-                
             }
+            return pl_item;
         }
 
         private void SQLFormOpen(object sender, RoutedEventArgs e)
@@ -103,13 +132,10 @@ namespace Onigaku
         {
             m_main_window.openUIPage(new signupPage());
         }
-
-        /// <summary>
-        /// if track.time_played < 30 && user_clicked_next() -> delete
-        /// play -> apple seed -> next -> previous -> next 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        private void openSignIn(object sender, RoutedEventArgs e)
+        {
+            m_main_window.openUIPage(new signinPage());
+        }
         public void play_track(object sender, RoutedEventArgs e)
         {
             var c = sender as Control;
@@ -149,27 +175,49 @@ namespace Onigaku
             }
         }
 
-        private void C_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void play_Click(object sender, RoutedEventArgs e)
         {
             AddTracks tracks_add = new AddTracks();
             tracks_add.AddTrack();
-            //music_panel.DataContext = tracks_add;
+            NavigationService.Refresh();
         }
 
-        private void left_panel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void left_panel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch(left_panel.SelectedIndex)
             {
                 case 1:
-                    m_main_window.openUIPage(new searchPage());
-                    left_panel.SelectedIndex = -1;
+                    var c = sender as Control;
+
+                    if (c.IsFocused)
+                    {
+                        c.Visibility = Visibility.Hidden;
+                        searchBox.Visibility = Visibility.Visible;
+                        searchBox.Focus();
+                    }
+                    else
+                    {
+                        searchBox.Visibility = Visibility.Hidden;
+                        c.Visibility = Visibility.Visible;
+                    }
+
+                    searchBox.Visibility = Visibility.Visible;
+                    searchBox.Focus();
+                    searchBox.Background = Brushes.Black;
+                    searchBox.Foreground = Brushes.White;
+                    break;
+
+                case 2:
+                    this.m_main_window.openUIPage(new Playlists());
                     break;
             }
+            left_panel.SelectedIndex = -1;
+        }
+
+        private void searchBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            searchBox.Visibility = Visibility.Collapsed;
         }
     }
 }

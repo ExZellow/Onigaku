@@ -23,22 +23,14 @@ namespace Onigaku
         {
             buttonStyle.Setters.Add(new Setter { Property = Control.FontFamilyProperty, Value = new FontFamily("Verdana") });
             buttonStyle.Setters.Add(new Setter { Property = Control.MarginProperty, Value = new Thickness(10) });
-            buttonStyle.Setters.Add(new Setter { Property = Control.FontSizeProperty, Value = 20.0 });
+            buttonStyle.Setters.Add(new Setter { Property = Control.FontSizeProperty, Value = 13.0 });
             buttonStyle.Setters.Add(new Setter { Property = Control.BackgroundProperty, Value = new SolidColorBrush(Colors.Black) });
             buttonStyle.Setters.Add(new Setter { Property = Control.ForegroundProperty, Value = new SolidColorBrush(Colors.Lime) });
             buttonStyle.Setters.Add(new Setter { Property = Control.OpacityProperty, Value = 0.5 });
-            //buttonStyle.Setters.Add(new EventSetter { Event = Button.ClickEvent, Handler = new RoutedEventHandler() });
+            buttonStyle.Setters.Add(new Setter { Property = Control.PaddingProperty, Value = new Thickness(8) });
 
             labelStyle.Setters.Add(new Setter { Property = Control.FontFamilyProperty, Value = new FontFamily("Tahoma") });
             labelStyle.Setters.Add(new Setter { Property = Control.FontSizeProperty, Value = 25.0 });
         }
-    
-
-
-
-        /*listOfGoods.Style = buttonStyle;
-        ExitButton.Style = buttonStyle;
-        companyName.Style = labelStyle;*/
-
     }
 }

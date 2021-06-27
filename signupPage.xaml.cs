@@ -19,23 +19,25 @@ using validation_t = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace Onigaku
 {
-    /// <summary> RegularExpressioAttribute
-    /// Логика взаимодействия для signupPage.xaml
-    /// </summary>
     
     public class get_t
     {
-        [Required(ErrorMessage = "1 Email cannot be empty(but i can)"), MinLength(6)]
-        [EmailAddress(ErrorMessage = "1 Email doesn't meet policy requirements")]
-        public string email;
-        [Required(ErrorMessage = "2 Password cannot be empty(but i can)"), MinLength(6)]
-        [RegularExpression("[.]", ErrorMessage = "2 password doesn't meet policy requirements")]
-        public string pwd;
-        [Required(ErrorMessage = "You must repeat password"), MinLength(6)]
-        public string pwd_repeat;
-        [Required(ErrorMessage = "3 Login cannot be empty(but my fridge, heart and soul can)"), MinLength(6)]
-        [RegularExpression("[.]", ErrorMessage = "4 password doesn't meet policy requirements")]
-        public string login;
+        [Required(ErrorMessage = "1: Email cannot be empty(but i can)."), MinLength(6)]
+        [EmailAddress(ErrorMessage = "1: Email doesn't meet policy requirements.")]
+        public string email { get; set; }
+        
+        [Required(ErrorMessage = "2: Login cannot be empty(but my fridge, heart and soul can)."), MinLength(6)]
+        [RegularExpression(@"^[a-zA-Z]\w*$", ErrorMessage = "2: Login doesn't meet policy requirements.")]
+        public string login { get; set; }
+        
+        [Required(ErrorMessage = "3: Password cannot be empty(but i can)."), MinLength(6)]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$", ErrorMessage = "3: Password doesn't meet policy requirements.")]
+        public string pwd { get; set; }
+
+        [Required(ErrorMessage = "4: You must repeat password."), MinLength(6)]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$", ErrorMessage = "4: Repeated password doesn't meet policy requirements.")]
+        [Compare(nameof(pwd), ErrorMessage = "4: Passwords don't match.")]
+        public string pwd_repeat { get; set; }
     }
 
 
@@ -45,72 +47,74 @@ namespace Onigaku
         {
             InitializeComponent();
         }
-        
-        private void login(object sender, RoutedEventArgs e)
-        {
-            ToolTip toolTip = new ToolTip();
-            StackPanel toolTipContent = new StackPanel();
-           /* if(validate_string(this.loginBox.Text))
-            {
-                toolTipContent.Children.Add(new TextBlock { Text = "Логин не должен быть пустым!", FontSize = 20 });
-
-                loginBox.BorderBrush = Brushes.Red;
-                loginBox.Focus();
-                loginBox.ToolTip = toolTip;
-            } else {
-                if (validate_string(this.pwBox.Password)) {                    
-                    
-                    toolTipContent.Children.Add(new TextBlock { Text = "Пароль не должен быть пустым!", FontSize = 20 });
-
-                    pwBox.BorderBrush = Brushes.Red;
-                    pwBox.Focus();
-                    pwBox.ToolTip = toolTip;
-                } else {
-                    //login
-                }
-            }*/
-        }
 
         private void signUp(object sender, RoutedEventArgs e)
         {
-            ToolTip toolTip = new ToolTip();
-            StackPanel toolTipContent = new StackPanel();
+
+            List<AutoCompleteTextBox.Editors.AutoCompleteTextBox> tb_list =
+                new List<AutoCompleteTextBox.Editors.AutoCompleteTextBox>() { emailBox, loginBox };
+            foreach (var tb in tb_list)
+            {
+                tb.BorderBrush = Brushes.White;
+                tb.BorderThickness = new Thickness(2);
+                tb.ToolTip = null;
+            }
+
+            List<PasswordBox> pb_list = new List<PasswordBox>() { pwBox, repeatpwBox };
+            foreach (var pb in pb_list)
+            {
+                pb.BorderBrush = Brushes.White;
+                pb.BorderThickness = new Thickness(2);
+                pb.ToolTip = null;
+            }
 
             var x = new get_t
             {
-                email = this.emailBox.Text,
-                pwd = this.pwBox.Password,
-                login = this.loginBox.Text
+                email = emailBox.Text,
+                login = loginBox.Text,
+                pwd = pwBox.Password,
+                pwd_repeat = repeatpwBox.Password
             };
 
             object obj = x as object;
             var ret = new List<validation_t>();
             var ctx = new ValidationContext(obj);
-            if(!Validator.TryValidateObject(obj, ctx, ret, true))
+            
+            
+
+            if (!Validator.TryValidateObject(obj, ctx, ret, true))
             {
-                toolTipContent = new StackPanel();
-                foreach(var entry in ret)
+                StackPanel toolTipContent;
+                foreach (var entry in ret)
                 {
+                    toolTipContent = new StackPanel();
                     switch(entry.ErrorMessage[0])
                     {
                         case '1':
-                            emailBox.BorderThickness = new Thickness(5,5,5,5);
+                            emailBox.BorderThickness = new Thickness(4);
                             emailBox.BorderBrush = Brushes.Red;
                             emailBox.Focus();
-                            emailBox.ToolTip = toolTip;
+                            emailBox.ToolTip = toolTipContent;
                             break;
                         case '2':
-                            loginBox.BorderThickness = new Thickness(5,5,5,5);
+                            loginBox.BorderThickness = new Thickness(4);
                             loginBox.BorderBrush = Brushes.Red;
                             loginBox.Focus();
-                            loginBox.ToolTip = toolTip;
+                            loginBox.ToolTip = toolTipContent;
                             break;
                         case '3':
-                            pwBox.BorderThickness = new Thickness(5,5,5,5);
+                            pwBox.BorderThickness = new Thickness(4);
                             pwBox.BorderBrush = Brushes.Red;
                             pwBox.Focus();
-                            pwBox.ToolTip = toolTip;
+                            pwBox.ToolTip = toolTipContent;
                             break;
+                        case '4':
+                            repeatpwBox.BorderThickness = new Thickness(4);
+                            repeatpwBox.BorderBrush = Brushes.Red;
+                            repeatpwBox.Focus();
+                            repeatpwBox.ToolTip = toolTipContent;
+                            break;
+
                         default: break;
                     }
                     toolTipContent.Children.Add(new TextBlock { Text = entry.ErrorMessage, FontSize = 20 });
@@ -118,26 +122,15 @@ namespace Onigaku
             } 
             else
             {
-                if (repeatpwBox.Password != pwBox.Password)
-                {
-                    toolTipContent.Children.Add(new TextBlock { Text = "Пароли не совпадают!", FontSize = 20 });
-
-                    repeatpwBox.BorderBrush = Brushes.Red;
-                    repeatpwBox.Focus();
-                    repeatpwBox.ToolTip = toolTip;
-                }
-                else
-                {
-                    
-                    user userr = new user();
-                    userr.email = emailBox.Text;
-                    userr.username = loginBox.Text;
-                    userr.password = pwBox.Password;
-                    var db_ctx = MLS_DB.GetContext();
-                    db_ctx.users.Add(userr);
-                    db_ctx.SaveChanges();
-                    MessageBox.Show("New user added");
-                }
+                user userr = new user();
+                userr.email = emailBox.Text;
+                userr.username = loginBox.Text;
+                userr.password = pwBox.Password;
+                userr.access_level = 1;
+                var db_ctx = MLS_DB.GetContext();
+                db_ctx.users.Add(userr);
+                db_ctx.SaveChanges();
+                MessageBox.Show("New user added");
             }
         }
 
@@ -149,7 +142,7 @@ namespace Onigaku
             }
             catch (Exception)
             {
-                this.emailBox.Text = "";
+                this.emailBox.Watermark = "";
             }
         }
 
@@ -161,7 +154,7 @@ namespace Onigaku
             }
             catch(Exception)
             {
-                this.emailBox.Text = "Электронная почта";
+                this.emailBox.Watermark = "Электронная почта";
             }
         }
 
@@ -170,43 +163,18 @@ namespace Onigaku
             NavigationService.GoBack();
         }
 
-        private void loginBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (this.loginBox.Text.Length < 6)
-            this.loginBox.Text = "";
-        }
-
-        private void loginBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (this.loginBox.Text.Length < 6)
-            {
-                this.loginBox.Text = "Логин";
-            }
-        }
-
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
+
+            pwBoxPlaceholder.Visibility = Visibility.Visible;
             pwBox.Visibility = Visibility.Hidden;
             pwBoxPlaceholder.Text = pwBox.Password;
-            pwBoxPlaceholder.Visibility = Visibility.Visible;
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            pwBoxPlaceholder.Visibility = Visibility.Hidden;
-            pwBox.Password = pwBoxPlaceholder.Text;
             pwBox.Visibility = Visibility.Visible;
-        }
-
-        private void pwBoxPlaceholder_GotFocus(object sender, RoutedEventArgs e)
-        {
-            pwBoxPlaceholder.Text = "";
-            pwBox.Focus();
-        }
-
-        private void pwBoxPlaceholder_LostFocus(object sender, RoutedEventArgs e)
-        {
-            pwBoxPlaceholder.Text = "Пароль";
+            pwBoxPlaceholder.Visibility = Visibility.Hidden;
         }
     }
 }

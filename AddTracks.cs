@@ -15,11 +15,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Onigaku
 {
-    /*public class db_attrib
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int track_id { get; set; }
-    }*/
     public class AddTracks
     {
         public void AddTrack()
@@ -29,7 +24,6 @@ namespace Onigaku
 
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = @"C:\";
-            //fileDialog.Filter = "Audio files | *.mp3; *.aif; *.m3u; *.m4a; *.mid; *.mpa; *.wav; *.wma";
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -38,29 +32,20 @@ namespace Onigaku
                 tracks_info tr_name = new tracks_info();
                 
 
-                //foreach (string musicFile in musicFiles)
                 string server_path = @"C:\DexHydre\webserver\tracks";
                 string[] musicFiles = Directory.GetFiles(server_path, "*.mp3");
                 int new_number = musicFiles.Count() + 1;
 
                 var musicFile = File.OpenRead(fileDialog.FileName);
-
-                /*var my_field = musicFile.GetType()
-                .GetField(musicFile.Name, System.Reflection.BindingFlags.Instance
-                | System.Reflection.BindingFlags.NonPublic);
-                */
-
-
+                
                 byte[] b = new byte[1024];
-                //Byte[] byteBLOBData = File.ReadAllBytes(fileName);
                 
                 musicFile.Read(b, 0, b.Length);
 
                 using (var mp3 = new Mp3(musicFile))
                 {
                     Id3Tag tag = mp3.GetTag(Id3TagFamily.Version2X);
-                    //try
-                    //{
+                    if (tag != null) {
                         var duplicate_track =
 
                         from tr in ctx.tracks_info
@@ -83,44 +68,13 @@ namespace Onigaku
                         orderby t.track_id descending
                         select t.track_id).Count() + 1;
 
-
-                    /*var a = new db_attrib
-                    {
-                        track_id = new_track_id
-                    };*/
-
-
-
-
-
-                    //System.Windows.MessageBox.Show(tag.Artists);
-                    if (duplicate_track.Any()) {
-                        System.Windows.MessageBox.Show("Duplicate track");
-                    }
-                    else
-                    //if (!ctx.performers.Where(p => p.performer_name == tag.Artists).Any())
-                    {
-                        /*if (ctx.performers.Join(ctx.tracks, p => p.performer_id, t => t.performer_id, (p, t) => new
+                        if (duplicate_track.Any())
                         {
-                            performer = p,
-                            track = t
-                        }).Join(ctx.tracks_info, tr => tr.track.track_id, i => i.track_id, (t, i) => new
+                            System.Windows.MessageBox.Show("Duplicate track");
+                        }
+                        else
                         {
-                            tracks_info = i,
-                            track = t
-                        }).Where())*/
-                        //if (!ctx.tracks_info.Where(t => t.track_name == tag.Title).Any())
-
-                        //System.Windows.MessageBox.Show(tag.Title);
-                        //curr_track.performer.performer_name = tag.Artists;
-
-                        /*object obj = a as object;
-                        var ret = new List<validation_t>();
-                        var valid_ctx = new ValidationContext(obj);
-                        if (!Validator.TryValidateObject(obj, valid_ctx, ret, true))
-                        {*/
                             curr_track.track_id = new_track_id;
-                        //}
                             if (existing_performer.Any())
                             {
                                 curr_track.performer_id = existing_performer.Single();
@@ -147,41 +101,28 @@ namespace Onigaku
                             tr_name.track_id = curr_track.track_id;
                             tr_name.track_name = tag.Title;
 
-                            //curr_track.tracks_info = tr_name;
-                            //tr_name.track = curr_track;
-                            //curr_track.performer = artist;
-
-                        if (!musicFiles.Contains(curr_track.track_id.ToString()))
-                        {
-                            DB.tracks.Add(curr_track);
-                            DB.tracks_info.Add(tr_name);
-
-                            int dot_position = musicFile.Name.IndexOf(".");
-                            string new_name = server_path + @"\" + new_number.ToString() + musicFile.Name.Substring(dot_position);
-                            if (File.Exists(new_name))
+                            if (!musicFiles.Contains(curr_track.track_id.ToString()))
                             {
-                                System.Windows.MessageBox.Show("Такой файл уже существует!");
+                                DB.tracks.Add(curr_track);
+                                DB.tracks_info.Add(tr_name);
+
+                                int dot_position = musicFile.Name.IndexOf(".");
+                                string new_name = server_path + @"\" + new_number.ToString() + musicFile.Name.Substring(dot_position);
+                                if (File.Exists(new_name))
+                                {
+                                    System.Windows.MessageBox.Show("Такой файл уже существует!");
+                                }
+                                else
+                                {
+                                    File.Copy(musicFile.Name, new_name);
+                                }
+                                DB.SaveChanges();
                             }
-                            else
-                            {
-                                File.Copy(musicFile.Name, new_name);
-                            }
-                            
-
-                            DB.SaveChanges();
-
                         }
-
-
-
-                            
-
-                        }
-                    //}
-                    //catch
-                    //{
-                    //    System.Windows.MessageBox.Show("This track already exists!");
-                    //}
+                    } else
+                    {
+                        System.Windows.MessageBox.Show("Invalid track data");
+                    }
                 }
             }
         }

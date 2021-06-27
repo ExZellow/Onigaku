@@ -32,7 +32,6 @@ namespace Onigaku
         }
 
 
-    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -48,6 +47,7 @@ namespace Onigaku
         public virtual DbSet<track> tracks { get; set; }
         public virtual DbSet<tracks_info> tracks_info { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<tracks_playlist> tracks_playlist { get; set; }
     
         public virtual int MLSDB_ImportImg(string imageFolderPath, string filename, string albumName)
         {

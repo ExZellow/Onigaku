@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MLS_DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MLS_DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="access">
           <Key>
             <PropertyRef Name="access_level" />
@@ -114,6 +114,20 @@
           </Key>
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="playlist_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "MLS_DB.dbo.tracks_playlist" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="tracks_playlist">
+          <Key>
+            <PropertyRef Name="playlist_id" />
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="track_id" />
+          </Key>
+          <Property Name="playlist_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="track_id" Type="int" Nullable="false" />
+          <Property Name="track_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="playlist_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK__albums__coverart__02FC7413">
           <End Role="coverarts" Type="Self.coverarts" Multiplicity="0..1">
@@ -329,6 +343,15 @@
           <EntitySet Name="tracks_info" EntityType="Self.tracks_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users_playlists" EntityType="Self.users_playlists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tracks_playlist" EntityType="Self.tracks_playlist" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tracks_playlist].[playlist_id] AS [playlist_id], 
+    [tracks_playlist].[user_id] AS [user_id], 
+    [tracks_playlist].[track_id] AS [track_id], 
+    [tracks_playlist].[track_name] AS [track_name], 
+    [tracks_playlist].[playlist_name] AS [playlist_name]
+    FROM [dbo].[tracks_playlist] AS [tracks_playlist]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__albums__coverart__02FC7413" Association="Self.FK__albums__coverart__02FC7413">
             <End Role="coverarts" EntitySet="coverarts" />
             <End Role="albums" EntitySet="albums" />
@@ -378,8 +401,7 @@
             <End Role="users_playlists" EntitySet="users_playlists" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MLS_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -665,6 +687,7 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="tracks_playlist" EntityType="MLS_DBModel.tracks_playlist" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -677,6 +700,18 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="tracks_playlist">
+          <Key>
+            <PropertyRef Name="playlist_id" />
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="track_id" />
+          </Key>
+          <Property Name="playlist_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="track_id" Type="Int32" Nullable="false" />
+          <Property Name="track_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="playlist_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -828,6 +863,17 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище MLS_DBModel.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище MLS_DBModel.sp_upgraddiagrams" />
+          <EntitySetMapping Name="tracks_playlist">
+            <EntityTypeMapping TypeName="MLS_DBModel.tracks_playlist">
+              <MappingFragment StoreEntitySet="tracks_playlist">
+                <ScalarProperty Name="playlist_name" ColumnName="playlist_name" />
+                <ScalarProperty Name="track_name" ColumnName="track_name" />
+                <ScalarProperty Name="track_id" ColumnName="track_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="playlist_id" ColumnName="playlist_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

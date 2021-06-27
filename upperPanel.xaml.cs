@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Onigaku
 {
-    /// <summary>
-    /// Логика взаимодействия для upperPanel.xaml
-    /// </summary>
     public partial class upperPanel : UserControl
     {
         private MainWindow m_main_window;
@@ -49,5 +46,10 @@ namespace Onigaku
                 openScaleButton.Content = char.ConvertFromUtf32(0xE922);
             }
         }
+        private void controlPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            m_main_window.DragMove();
+        }
+
     }
 }

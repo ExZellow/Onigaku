@@ -7,25 +7,29 @@
         mc:Ignorable="d"
         Title="SQLData" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="DG" HorizontalAlignment="Left" AutoGenerateColumns="False" Height="185" Margin="22,37,0,0" VerticalAlignment="Top" Width="350" IsReadOnly="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Name="DG" Grid.Column="0" HorizontalAlignment="Left" AutoGenerateColumns="False" VerticalAlignment="Top" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding user_id}" Header="ID" Width="*"/>
                 <DataGridTextColumn Binding="{Binding username}" Header="Username" Width="3*"/>
-                <DataGridTextColumn Binding="{Binding password}" Header="Password" Width="3*" />
-                <DataGridTextColumn Binding="{Binding access_level}" Header="Access level" Width="3*"/>
-                <DataGridTextColumn Binding="{Binding email}" Header="Email" Width="3*" />
+                <DataGridTextColumn Binding="{Binding password}" Header="Password" Width="3*"/>
+                <DataGridTextColumn Binding="{Binding access_level}" Header="Access level" Width="1.5*"/>
+                <DataGridTextColumn Binding="{Binding email}" Header="Email" Width="4*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox Name="Email"  HorizontalAlignment="Left" Height="23" Margin="480,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="User" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="480,89,0,0"/>
-        <TextBox Name="PW" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="480,117,0,0"/>
-        <Button x:Name="insertion" Content="Insert" HorizontalAlignment="Left" Margin="480,145,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="Insert_Data"/>
-        <Button x:Name="DeleteData" Content="Delete" HorizontalAlignment="Left" Height="36" Margin="480,186,0,0" VerticalAlignment="Top" Width="120" Click="Delete"/>
-        <Button x:Name="Update" Content="Update" HorizontalAlignment="Left" Height="39" Margin="480,227,0,0" VerticalAlignment="Top" Width="120" Click="UpdateData"/>
-        <Label x:Name="label" Content="Email" HorizontalAlignment="Left" Margin="427,61,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label1" Content="Username" HorizontalAlignment="Left" Margin="403,88,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label2" Content="Password" HorizontalAlignment="Left" Margin="405,117,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="display" Content="Display" HorizontalAlignment="Left" Height="39" Margin="480,227,0,0" VerticalAlignment="Top" Width="120" Click="DisplayData"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="DeleteData" Grid.Row="1" Content="Delete" HorizontalAlignment="Center" Height="36" Width="120" Click="Delete"/>
+            <Button x:Name="display" Grid.Row="2" Content="Display" HorizontalAlignment="Center" Height="36" Width="120" Click="DisplayData"/>
+        </Grid>
 
     </Grid>
 </Window>

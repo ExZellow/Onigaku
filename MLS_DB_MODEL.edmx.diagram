@@ -24,6 +24,7 @@
         <AssociationConnector Association="MLS_DBModel.albums_tracks" ManuallyRouted="false" />
         <AssociationConnector Association="MLS_DBModel.playlist_tracks" ManuallyRouted="false" />
         <AssociationConnector Association="MLS_DBModel.users_playlists" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MLS_DBModel.tracks_playlist" Width="1.5" PointX="13" PointY="2.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,6 +1,8 @@
 ﻿<Page x:Class="Onigaku.signupPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:wpf="http://wpfcontrols.com/"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:uc="clr-namespace:Onigaku"
@@ -8,13 +10,13 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Name="signUpGrid">
+    <Grid Name="signUpGrid" Background="#171717">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ContentControl x:Name="upPanel" Grid.Row="0" Grid.RowSpan="2">
         </ContentControl>
-        <Grid Grid.Row="1" Background="#171717">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -27,17 +29,22 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBox GotFocus="emailBox_GotFocus" LostFocus="emailBox_LostFocus" x:Name="emailBox" Text="Электронная почта" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="55" TextWrapping="Wrap" Width="243" Margin="9.8,11.4,0,0" Grid.Column="1" Grid.Row="0"/>
-            <TextBox GotFocus="loginBox_GotFocus" LostFocus="loginBox_LostFocus" x:Name="loginBox" Text="Логин" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center" Height="56" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" Margin="9.8,10.6,0,0" Grid.Column="1" Grid.Row="1"/>
-            <PasswordBox x:Name="pwBox" PasswordChar="•" HorizontalAlignment="Left" FontSize="18" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="57" Width="243" Margin="10,9.8,0,0" Grid.Column="1" Grid.Row="2"/>
-            <TextBox x:Name="pwBoxPlaceholder" GotFocus="pwBoxPlaceholder_GotFocus" LostFocus="pwBoxPlaceholder_LostFocus" Text="Пароль" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,9.8,0,0" Grid.Column="1" Grid.Row="2"/>
-            <PasswordBox x:Name="repeatpwBox" PasswordChar="•" HorizontalAlignment="Left" FontSize="18" VerticalContentAlignment="Center"  VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,10,0,0" Grid.Column="1" Grid.Row="3"/>
-            <TextBox x:Name="repeatpwBoxPlaceholder" Text="Повторите пароль" HorizontalAlignment="Left" FontSize="18" Foreground="Gray" VerticalContentAlignment="Center"  VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,10,0,0" Grid.Column="1" Grid.Row="3"/>
-            <Button x:Name="signupButton" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="63" Margin="131.8,12,0,0" VerticalAlignment="Top" Width="125" Grid.Column="1" Click="signUp" Grid.Row="4"/>
-            <Button x:Name="loginButton" Content="Уже есть аккаунт?" HorizontalAlignment="Left" Height="63" Margin="10.8,12,0,0" VerticalAlignment="Top" Width="114" Click="signUp" Grid.Row="5" Grid.Column="1"/>
+            <wpf:AutoCompleteTextBox GotFocus="emailBox_GotFocus" LostFocus="emailBox_LostFocus" x:Name="emailBox" Watermark="Электронная почта" HorizontalAlignment="Left" FontSize="18" Background="#171717" Foreground="White" BorderBrush="White" BorderThickness="2" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="55" Width="243" Margin="9.8,11.4,0,0" Grid.Column="1" Grid.Row="0"/>
+            <wpf:AutoCompleteTextBox  x:Name="loginBox" Watermark="Логин" HorizontalAlignment="Left" FontSize="18" Background="#171717" Foreground="White" BorderBrush="White" BorderThickness="2" VerticalContentAlignment="Center" Height="56" VerticalAlignment="Top" Width="243" Margin="9.8,10.6,0,0" Grid.Column="1" Grid.Row="1"/>
+            <PasswordBox x:Name="pwBox" PasswordChar="•" Background="#171717" Foreground="White" BorderBrush="White" BorderThickness="2" HorizontalAlignment="Left" FontSize="18" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="57" Width="243" Margin="10,9.8,0,0" Grid.Column="1" Grid.Row="2"/>
+            <wpf:AutoCompleteTextBox x:Name="pwBoxPlaceholder" Visibility="Collapsed" HorizontalAlignment="Left" FontSize="18" Foreground="White" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,9.8,0,0" Grid.Column="1" Grid.Row="2" BorderBrush="White" BorderThickness="2"/>
+            <PasswordBox x:Name="repeatpwBox" Background="#171717" PasswordChar="•" Foreground="White" BorderBrush="White" BorderThickness="2" HorizontalAlignment="Left" FontSize="18" VerticalContentAlignment="Center"  VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,10,0,0" Grid.Column="1" Grid.Row="3"/>
+            <wpf:AutoCompleteTextBox x:Name="repeatpwBoxPlaceholder" Visibility="Collapsed" HorizontalAlignment="Left" FontSize="18" Foreground="White" VerticalContentAlignment="Center"  VerticalAlignment="Top" Height="57" Width="243" Margin="9.8,10,0,0" Grid.Column="1" Grid.Row="3" BorderBrush="White" BorderThickness="2"/>
             <Button Content="&#xE751;" FontFamily="Segoe MDL2 Assets" Foreground="White" FontSize="30" HorizontalAlignment="Left" Height="59" VerticalAlignment="Top" Width="99" Opacity="0.5" Background="#171717" BorderBrush="Transparent" Click="signUp_MoveBack"/>
             <CheckBox Content="Показать пароль" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Height="19" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="loginButton" Content="Уже есть аккаунт?" HorizontalAlignment="Stretch" Height="63" VerticalAlignment="Center" Click="signUp" Grid.Column="0"/>
+                <Button x:Name="signupButton" Content="Зарегистрироваться" Height="63" HorizontalAlignment="Center" VerticalAlignment="Center" Click="signUp" Grid.Column="1"/>
+            </Grid>
         </Grid>
     </Grid>
-
 </Page>

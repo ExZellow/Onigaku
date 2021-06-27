@@ -8,11 +8,12 @@
         mc:Ignorable = "d" Height = "450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode = "NoResize" WindowStyle = "None" Title="MainWindow">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="12*"/>
         </Grid.RowDefinitions>
         <ContentControl x:Name="upPanel" Grid.Row="0" Grid.RowSpan="2">
         </ContentControl>
+        
         <Frame x:Name="navigationFrame" NavigationUIVisibility="Hidden" Grid.Row="1"/>
     </Grid>
 </Window>

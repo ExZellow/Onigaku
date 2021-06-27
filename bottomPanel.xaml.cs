@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Onigaku
 {
-    /// <summary>
-    /// Логика взаимодействия для bottom_panel.xaml
-    /// </summary>
     public partial class bottomPanel : UserControl
     {
         public bottomPanel()

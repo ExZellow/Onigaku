@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoCompleteTextBox, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AutoCompleteTextBox.1.1.1\lib\net472\AutoCompleteTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -47,8 +50,8 @@
     <Reference Include="Id3.Net, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ID3.0.6.0\lib\net40\Id3.Net.dll</HintPath>
     </Reference>
-    <Reference Include="JetBrains.Annotations, Version=2021.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>packages\JetBrains.Annotations.2021.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    <Reference Include="JetBrains.Annotations, Version=2021.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>packages\JetBrains.Annotations.2021.2.0-eap2\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -69,6 +72,12 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>packages\WpfAnimatedGif.2.0.0\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFTextBoxAutoComplete, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WPFTextBoxAutoComplete.1.0.5\lib\net40\WPFTextBoxAutoComplete.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -88,7 +97,6 @@
     <Compile Include="coverart.cs">
       <DependentUpon>MLS_DB_MODEL.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB.cs" />
     <Compile Include="mainPage.xaml.cs">
       <DependentUpon>mainPage.xaml</DependentUpon>
     </Compile>
@@ -113,13 +121,15 @@
     <Compile Include="playlist.cs">
       <DependentUpon>MLS_DB_MODEL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Playlists.xaml.cs">
+      <DependentUpon>Playlists.xaml</DependentUpon>
+    </Compile>
     <Compile Include="rating.cs">
       <DependentUpon>MLS_DB_MODEL.tt</DependentUpon>
     </Compile>
-    <Compile Include="searchPage.xaml.cs">
-      <DependentUpon>searchPage.xaml</DependentUpon>
+    <Compile Include="signinPage.xaml.cs">
+      <DependentUpon>signinPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="seekTracks.cs" />
     <Compile Include="signupPage.xaml.cs">
       <DependentUpon>signupPage.xaml</DependentUpon>
     </Compile>
@@ -140,6 +150,9 @@
       <DependentUpon>MLS_DB_MODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="tracks_info.cs">
+      <DependentUpon>MLS_DB_MODEL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tracks_playlist.cs">
       <DependentUpon>MLS_DB_MODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="upperPanel.xaml.cs">
@@ -168,7 +181,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="searchPage.xaml">
+    <Page Include="Playlists.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="signinPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
