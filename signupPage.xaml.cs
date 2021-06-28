@@ -176,5 +176,10 @@ namespace Onigaku
             pwBox.Visibility = Visibility.Visible;
             pwBoxPlaceholder.Visibility = Visibility.Hidden;
         }
+
+        private void logIn(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new signinPage());
+        }
     }
 }

@@ -42,7 +42,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="loginButton" Content="Уже есть аккаунт?" HorizontalAlignment="Stretch" Height="63" VerticalAlignment="Center" Click="signUp" Grid.Column="0"/>
+                <Button x:Name="loginButton" Content="Уже есть аккаунт?" HorizontalAlignment="Stretch" Height="63" VerticalAlignment="Center" Click="logIn" Grid.Column="0"/>
                 <Button x:Name="signupButton" Content="Зарегистрироваться" Height="63" HorizontalAlignment="Center" VerticalAlignment="Center" Click="signUp" Grid.Column="1"/>
             </Grid>
         </Grid>
