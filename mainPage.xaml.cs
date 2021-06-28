@@ -166,12 +166,19 @@ namespace Onigaku
                         MessageBox.Show("There is no such file!");
                     }
                 }
-                client.DownloadFile("http://localhost:1337/" + Convert.ToInt32(c.Tag), path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3");
-                player.Open(new Uri(path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3", UriKind.Relative));
-                player.Play();
-                played_track_counter++;
-                IsPlaying = true;
-                this.Tag = c.Tag;
+                try
+                {
+                    client.DownloadFile("http://localhost:1337/" + Convert.ToInt32(c.Tag), path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3");
+                    player.Open(new Uri(path_t.GetTempPath().ToString() + Convert.ToInt32(c.Tag) + ".mp3", UriKind.Relative));
+                    player.Play();
+                    played_track_counter++;
+                    IsPlaying = true;
+                    this.Tag = c.Tag;
+                }
+                catch
+                {
+                    MessageBox.Show("Запустите сервер!");
+                }
             }
         }
 

@@ -95,7 +95,7 @@
             <wpf:AutoCompleteTextBox Watermark="Введите название трека" Name="searchBox"
                                      Text="" Visibility="Collapsed" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                      Width="203" Grid.Row="1" Grid.Column="0" 
-                                     Foreground="White" MouseDown="searchBox_MouseDown" 
+                                     Foreground="White" 
                                      />
         </Grid>
     </Grid>
